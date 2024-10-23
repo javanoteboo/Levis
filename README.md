@@ -168,6 +168,36 @@ average_coef = np.mean(coefficients)
 print(average_coef)
 
 
+#EM.2
+import pandas as pd
+df=pd.read_csv("Skulls.csv")
+df.head(5)
+import seaborn as sns In [187]: x_train,x_test=train_test_split(df,test_size=0.3,random_state=42) x_train
+df.drop(['rownames'],axis='columns',inplace=True) 
+df
+df.drop(['epoch'],axis='columns',inplace=True)
+df
+import matplotlib.pyplot as plt
+plt.scatter(x_train['mb'],x_train['bh']); plt.title("Scatter plot between mb and bh column") plt.xlabel("maximum breadth") plt.ylabel("basi bregmatic heights")…..
+from sklearn.mixture import GaussianMixture In [234]: model=GaussianMixture(n_components=3) model.fit(x_train,None)
+model.fit_predict(x_test)
+a=model.fit_predict(x_train)
+#1.
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+iris=datasets.load_iris()
+iris
+import seaborn as sns
+x_train,x_test=train_test_split(iris.data,test_size=0.3,random_state=42
+x_train
+import matplotlib.pyplot as plt
+plt.scatter(x_train[:,0],x_train[:,1]); plt.title("Scatter plot between 0th and 1st column")
+from sklearn.mixture import GaussianMixture
+model=GaussianMixture(n_components=3) model.fit(x_train,None)
+
+
+
 
 
 
