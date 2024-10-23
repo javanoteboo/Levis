@@ -114,3 +114,60 @@ support_vectors_class=cls.support_
 print(support_vectors_class)
 support_vectors_per_class=cls.n_support_
 print(support_vectors_per_class)
+
+#bootstrapping.1
+import numpy as np
+import scipy.stats as st
+population_dist=np.random.poisson(20,size=1000)
+population_dist
+sample=np.random.choice(population_dist,10,replace=False)
+bootstrap_dist=[(np.random.choice(sample,10,replace=True))]
+sample
+bootstrap_dist
+bootstrap_mean=[np.mean(bootstrap_dist)]
+bootstrap_mean
+st.t.interval(confidence=0.95,df=9,loc=np.mean(bootstrap_dist))
+#2.
+import pandas as pd
+df = pd.DataFrame({
+    'Grade': students_cgpa
+})
+Df
+df.describe()
+import numpy as np
+sample1 = np.random.choice(students_cgpa, 15, replace = False)
+bootstrap_sample1 = [(np.random.choice(students_cgpa, 15, replace = True))]
+sample1
+bootstrap_sample1
+import matplotlib
+import matplotlib.pyplot as pt
+bootstrap_100 = pd.DataFrame({'meangrade':[df.sample(20,replace=True).Grade.mean() for i in range (100)]})
+bootstrap_100.meangrade.hist(histtype = 'step')
+pt.axvline(df.Grade.mean(),color='red')
+bootstrap_100.meangrade.quantile(0.025), bootstrap_100.meangrade.quantile(0.075)
+yrs_of_exp = np.array([1.1,1.3,1.5,2,2.2,2.9,3,3.2,3.2,3.7,3.9,4,4,4.1,4.5,4.9,5.1,5.3,5.9,6,6.8,7.1,7.9,
+                       8.2,8.7,9,9.5,9.6,10.3,10.5])
+salary = np.array([39343, 46205 ,43525 , 37731,  39891, 56642 , 60150 , 54445, 64445, 
+                   57189 ,63218,  55794 , 56957, 57081, 6111, 67938 ,66029, 83088,
+                   81363, 93940, 91738, 98273, 101302, 113812, 109431 ,105582, 116969,
+                  112635, 122391, 121872])
+bootstrap_sample3 = [np.random.choice(len(yrs_of_exp), size=10, replace=True) for i in range(3)]
+bootstrap_sample3
+#3.
+from sklearn.linear_model import LinearRegression
+def estimate_regression_coefficient(sample_idx):
+    x_sample = yrs_of_exp[sample_idx].reshape(-1,1)
+    y_sample = salary[sample_idx]
+    model = LinearRegression()
+    model.fit(x_sample, y_sample)
+    return model.coef_[0]
+coefficients = [estimate_regression_coefficient(sample_idx) for sample_idx in bootstrap_sample3]
+print(f"Bootstrap Regression Coefficients: {coefficients}")
+Bootstrap Regression Coefficients: [9966.853434674646, 8967.275729678398, 9942.471069839978]
+average_coef = np.mean(coefficients)
+print(average_coef)
+
+
+
+
+
