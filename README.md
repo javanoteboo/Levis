@@ -196,6 +196,46 @@ plt.scatter(x_train[:,0],x_train[:,1]); plt.title("Scatter plot between 0th and 
 from sklearn.mixture import GaussianMixture
 model=GaussianMixture(n_components=3) model.fit(x_train,None)
 
+#KNN.1
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
+from sklearn.metrics import accuracy_score
+dataset=pd.read_csv('KNN_Dataset.csv')
+dataset.head()
+# replace zeroes
+zero_not_accepted=['Glucose','BloodPressure','SkinThickness','BMI','Insulin']
+for column in zero_not_accepted:
+    dataset[column]=dataset[column].replace(0,np.NAN)
+    mean=int(dataset[column].mean(skipna=True))
+    dataset[column]=dataset[column].replace(np.NAN,mean)
+dataset.head()
+x=dataset.drop('Outcome',axis=1)
+y=dataset['Outcome']
+x_train,x_test,y_train,y_test=train_test_split(x,y,random_state=0,test_size=0.2)
+print(len(x_train))
+print(len(y_train))
+print(len(x_test))
+print(len(y_test))
+768**(1/2)
+#feature scaling
+sc_x=StandardScaler()
+x_train=sc_x.fit_transform(x_train)
+x_test=sc_x.transform(x_test)
+x_train
+classifier = KNeighborsClassifier(n_neighbors=28, p=2, metric="euclidean")
+classifier.fit(x_train,y_train)
+y_pred =classifier.predict(x_test)
+y_pred
+cm=confusion_matrix(y_test,y_pred)
+print(cm)
+print(f1_score(y_test,y_pred))
+print(accuracy_score(y_test,y_pred))
+
 
 
 
