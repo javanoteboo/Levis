@@ -1,0 +1,51 @@
+#1
+data=data.frame(
+ plot=1:30,
+ treatment=rep(c("T1","T2","T3","T4","T5"),each=6),
+
+yield=c(310,421,343,330,357,401,369,454,365,327,382,307,349,416,401,326,377,274,320,359,357,369,394,374,397,
+359,333,341,321,431)
+)
+data
+anova_model=aov(yield~treatment,data=data)
+summary(anova_model)
+#2
+data=data.frame(
+ treatment1=rep(c("T1","T2","T3","T4","T5","T6"),each=4),
+ block1=rep(c("1","2","3","4"),times=6),
+
+y=c(24.7,20.6,27.7,16.2,16.2,24.9,27.3,28.8,22.7,15.0,17.0,22.5,38.5,39.5,36.8,19.6,15.4,26.3,28.5,31,34.9,14.1,17.7,
+22.6)
+)
+data
+anova_model=aov(y~block1+treatment1,data=data)
+summary(anova_model)
+#3
+data=data.frame(
+ fertilizer=rep(1:5,each=5),
+ land=rep(1:5,times=5),
+
+treatment=factor(c("A","C","B","D","E","E","B","C","A","D","C","A","D","E","B","B","D","E","C","A","D","E","A","B","C
+")),
+ productivity=c(42,47,55,51,44,45,54,52,44,50,41,46,57,47,48,56,52,49,50,43,47,49,45,54,46)
+)
+data
+data$fertilizer=factor(data$fertilizer)
+data$land=factor(data$land)
+anova_model=aov(productivity~fertilizer+land+treatment,data=data)
+summary(anova_model)
+#4
+pre_test <- c(94, 96, 98, 100, 102, 105, 109, 110, 111, 130,
+ 80, 84, 90, 97, 97, 112, 115, 118, 120, 120,
+ 92, 96, 99, 101, 102, 104, 107, 110, 110, 118,
+ 94, 94, 98, 100, 103, 104, 108, 113, 115, 104)
+post_test <- c(14, 19, 17, 38, 40, 26, 41, 28, 36, 66,
+ 38, 34, 43, 43, 61, 63, 93, 74, 76, 79,
+ 55, 53, 55, 52, 35, 46, 34, 55, 42, 81,
+ 37, 24, 22, 43, 49, 41, 26, 70, 63, 24)
+teaching_methods <- factor(rep(1:4, each = 10)) # Teaching methods (I, II, III, IV)
+blocks=factor(rep(1:10,times=4))
+data4 <- data.frame(blocks,teaching_methods,pre_test,post_test)
+data4
+ancova_model <- aov(post_test ~ pre_test+teaching_methods+blocks, data = data4)
+summary(ancova_model)
